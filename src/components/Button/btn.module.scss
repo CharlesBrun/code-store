@@ -4,6 +4,7 @@
   flex: 1;
   padding: 0.75rem;
   border: 1px solid $primary-color;
+  border-radius: 4px;
   cursor: pointer;
   text-transform: uppercase;
   font-weight: bold;
@@ -15,8 +16,23 @@
   &:hover {
     background-color: $nav-background;
   }
+
   &:active {
     background-color: #1d4e86;
     transform: translateY(4px);
+  }
+
+  &.disabled {
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    color: #666;
+    cursor: not-allowed;
+    pointer-events: none;
+
+    &:hover,
+    &:active {
+      background-color: #ccc;
+      transform: none;
+    }
   }
 }

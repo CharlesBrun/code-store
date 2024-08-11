@@ -5,20 +5,31 @@ interface IButton {
   text: string;
   handleNavigate?: () => void;
   onClick?: () => void;
+  isDisabled?: boolean;
 }
 
-const Button: React.FC<IButton> = ({ text, handleNavigate, onClick }) => {
+const Button: React.FC<IButton> = ({
+  text,
+  handleNavigate,
+  onClick,
+  isDisabled,
+}) => {
   const handleClick = () => {
     if (onClick) {
       onClick();
     } else if (handleNavigate) {
       handleNavigate();
-    } else {
-      return;
     }
   };
+
   return (
-    <button onClick={handleClick} className={styles.checkoutButton}>
+    <button
+      onClick={handleClick}
+      disabled={isDisabled}
+      className={`${styles.checkoutButton} ${
+        isDisabled ? styles.disabled : ""
+      }`}
+    >
       {text}
     </button>
   );
