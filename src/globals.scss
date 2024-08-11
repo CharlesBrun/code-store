@@ -5,7 +5,8 @@
   transition: background 1s ease-in-out;
   background-size: cover;
 
-  p {
+  p,
+  h1 {
     padding: 0;
     margin: 0;
   }
@@ -14,7 +15,7 @@
     content: "";
     background: $background;
     height: 100%;
-    position: absolute;
+    // position: absolute;
     top: 0;
     width: 100%;
   }
@@ -23,9 +24,9 @@
 body {
   color: $text-color;
   font-family: $font-family;
-  height: calc(100vh - 3.5rem);
+  // height: calc(100vh - 3.5rem);
   margin: auto;
   max-width: $max-width;
-  overflow: hidden;
-  position: relative;
+  // overflow: hidden;
+  // position: relative;
 }

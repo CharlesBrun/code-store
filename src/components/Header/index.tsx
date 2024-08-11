@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import styles from "./header.module.scss";
 import {
   MdOutlineQueryBuilder,
@@ -11,6 +11,7 @@ import Item from "../Item";
 import juice from "../../assets/juice.png";
 import food from "../../assets/food.png";
 import voucher from "../../assets/voucher.png";
+import { useNavigate } from "react-router-dom";
 
 const items = [
   {
@@ -38,7 +39,7 @@ const items = [
 
 const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-
+  const navigate = useNavigate();
   const toggleCart = () => {
     setIsCartOpen((prevOpen) => !prevOpen);
   };
@@ -63,7 +64,9 @@ const Header = () => {
           />
           <MdOutlineQueryBuilder
             className={styles.navIcon}
-            onClick={() => {}}
+            onClick={() => {
+              navigate("/historico");
+            }}
           />
         </div>
       </header>

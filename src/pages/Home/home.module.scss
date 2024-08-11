@@ -1,0 +1,26 @@
+@import "../../variables.scss";
+
+.container {
+  display: flex;
+  max-width: $max-width;
+  padding: 2vh 5%;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  gap: 5rem;
+  flex-wrap: wrap;
+}
+
+.rowColumm {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 700;
+}

@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./sideInfo.module.scss";
+import { useNavigate } from "react-router-dom";
+import Button from "../Button";
 
 interface ISideInfo {
   children: React.ReactNode;
@@ -8,6 +10,10 @@ interface ISideInfo {
 }
 
 const SideInfo: React.FC<ISideInfo> = ({ children, isOpen, closePanel }) => {
+  const navigate = useNavigate();
+  function handleNavigate() {
+    navigate("/checkout");
+  }
   return (
     <div
       className={`${styles.overlay} ${isOpen ? styles.showOverlay : ""}`}
@@ -41,7 +47,7 @@ const SideInfo: React.FC<ISideInfo> = ({ children, isOpen, closePanel }) => {
             </div>
           </div>
           <div className={styles.actions}>
-            <button className={styles.checkoutButton}>FINALIZAR COMPRA</button>
+            <Button text="FINALIZAR COMPRA" handleNavigate={handleNavigate} />
           </div>
         </div>
       </div>

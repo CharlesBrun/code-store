@@ -1,0 +1,17 @@
+.row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.backIcon {
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  margin: 0 0.5rem;
+}
