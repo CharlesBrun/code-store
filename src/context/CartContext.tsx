@@ -1,15 +1,10 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-
-interface IItem {
-  id: number;
-  src: string;
-  name: string;
-  price: number;
-  qnt: number;
-}
+import { api } from "../services/api";
+import { IItem } from "../types/item";
 
 interface CartContextType {
   item: IItem;
+  products: IItem[];
   items: IItem[];
   totalPoints: number;
   totalItems: number;
@@ -30,6 +25,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const walletPoints = 1000;
   const [item, setItem] = useState<IItem>({} as IItem);
+  const [products, setProducts] = useState<IItem[]>([]);
   const [items, setItems] = useState<IItem[]>([]);
   const [totalPoints, setTotalPoints] = useState<number>(0);
   const [totalItems, setTotalItems] = useState<number>(0);
@@ -44,6 +40,19 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     setItem({} as IItem);
     setModalOpen(false);
   };
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const { data } = await api.get("/products");
+        setProducts(data);
+      } catch (error) {
+        console.error("Erro ao buscar itens:", error);
+      }
+    };
+
+    fetchItems();
+  }, []);
 
   useEffect(() => {
     const newTotalItems = items.reduce((total, item) => total + item.qnt, 0);
@@ -121,6 +130,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     <CartContext.Provider
       value={{
         item,
+        products,
         items,
         totalPoints,
         totalItems,
