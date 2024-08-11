@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #112d4e;
+  color: #f9f7f7;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rowNavIcon {
+  display: flex;
+  align-items: center;
+
+  .navIcon {
+    margin-left: 1rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+}

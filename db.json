@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Charles",
+      "email": "charles@email.com",
+      "password": "123456"
+    },
+    {
+      "id": "2",
+      "name": "Joao",
+      "email": "joao@email.com",
+      "password": "123456"
+    },
+    {
+      "id": "874e",
+      "email": "veri-frontend@gmail.com",
+      "name": "teste",
+      "password": "1234"
+    }
+  ]
+}
