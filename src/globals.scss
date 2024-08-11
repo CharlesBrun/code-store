@@ -5,6 +5,11 @@
   transition: background 1s ease-in-out;
   background-size: cover;
 
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
   &::before {
     content: "";
     background: $background;

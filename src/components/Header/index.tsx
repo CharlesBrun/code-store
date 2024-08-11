@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styles from "./header.module.scss";
 import {
   MdOutlineQueryBuilder,
@@ -12,70 +12,67 @@ import juice from "../../assets/juice.png";
 import food from "../../assets/food.png";
 import voucher from "../../assets/voucher.png";
 
+const items = [
+  {
+    id: 1,
+    src: juice,
+    name: "Suco de laranja",
+    price: 10,
+    qnt: 1,
+  },
+  {
+    id: 2,
+    src: food,
+    name: "Almoço especial",
+    price: 10,
+    qnt: 3,
+  },
+  {
+    id: 3,
+    src: voucher,
+    name: "Desconto 10%",
+    price: 10,
+    qnt: 1,
+  },
+];
+
 const Header = () => {
-  const [openPanel, setOpenPanel] = useState<"cart" | "history" | null>(null);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const togglePanel = (panel: "cart" | "history") => {
-    setOpenPanel((prevPanel) => (prevPanel === panel ? null : panel));
+  const toggleCart = () => {
+    setIsCartOpen((prevOpen) => !prevOpen);
   };
 
-  const closePanel = () => {
-    setOpenPanel(null);
+  const closeCart = () => {
+    setIsCartOpen(false);
   };
-
-  const items = [
-    {
-      id: 1,
-      src: juice,
-      name: "suco de laranja",
-      price: 10,
-      qnt: 1,
-    },
-    {
-      id: 2,
-      src: food,
-      name: "almoço especial",
-      price: 10,
-      qnt: 3,
-    },
-    {
-      id: 3,
-      src: voucher,
-      name: "desconto 10%",
-      price: 10,
-      qnt: 1,
-    },
-  ];
 
   return (
     <>
       <header className={styles.container}>
-        <p className={styles.row}>
-          <MdAccountBalanceWallet />
-          Saldo: 50.00
-        </p>
+        <div className={styles.row}>
+          <MdAccountBalanceWallet className={styles.iconWallet} />
+          <p>
+            Pontos: <span>1000</span>
+          </p>
+        </div>
         <div className={styles.rowNavIcon}>
           <MdOutlineShoppingCart
             className={styles.navIcon}
-            onClick={() => togglePanel("cart")}
+            onClick={toggleCart}
           />
           <MdOutlineQueryBuilder
             className={styles.navIcon}
-            onClick={() => togglePanel("history")}
+            onClick={() => {}}
           />
         </div>
       </header>
       <SideInfo
-        isOpen={openPanel === "cart"}
-        closePanel={closePanel}
+        isOpen={isCartOpen}
+        closePanel={closeCart}
         children={items.map((item) => (
           <Item key={item.id} {...item} />
         ))}
-      />
-      <SideInfo
-        isOpen={openPanel === "history"}
-        closePanel={closePanel}
-        children={<p>Histórico de compras</p>}
       />
     </>
   );
