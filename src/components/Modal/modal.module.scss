@@ -1,0 +1,98 @@
+@import "../../variables.scss";
+
+.Modalbtn {
+  color: #fff;
+  padding: 10px 14px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  opacity: 0.9;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.modalCancelbtn,
+.Modaldeletebtn {
+  border-radius: 4px;
+  width: 30%;
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.modalCancelbtn {
+  background-color: #ccc;
+  color: $text-color;
+}
+
+.Modaldeletebtn {
+  background-color: #f44336;
+}
+
+.Modalcontainer {
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1002;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+
+  pointer-events: none;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+}
+
+.modalContent {
+  background-color: $background;
+  margin: 5% auto 15% auto;
+  border-radius: 4px;
+  width: 300px;
+  position: relative;
+}
+
+.Modalclearfix {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media screen and (max-width: 300px) {
+  .modalCancelbtn,
+  .Modaldeletebtn {
+    width: 100%;
+  }
+}

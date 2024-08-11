@@ -2,18 +2,20 @@ import React from "react";
 import styles from "./sideInfo.module.scss";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button";
+import { useCart } from "../../context/CartContext";
+import Item from "../Item";
 
-interface ISideInfo {
-  children: React.ReactNode;
-  isOpen: boolean;
-  closePanel: () => void;
-}
-
-const SideInfo: React.FC<ISideInfo> = ({ children, isOpen, closePanel }) => {
+const SideInfo: React.FC<{ isOpen: boolean; closePanel: () => void }> = ({
+  isOpen,
+  closePanel,
+}) => {
+  const { items, totalPoints } = useCart();
   const navigate = useNavigate();
+
   function handleNavigate() {
     navigate("/checkout");
   }
+
   return (
     <div
       className={`${styles.overlay} ${isOpen ? styles.showOverlay : ""}`}
@@ -29,21 +31,25 @@ const SideInfo: React.FC<ISideInfo> = ({ children, isOpen, closePanel }) => {
             X
           </button>
         </div>
-        <div className={styles.rowItens}>{children}</div>
+        <div className={styles.rowItens}>
+          {items.map((item) => (
+            <Item key={item.id} {...item} />
+          ))}
+        </div>
 
         <div className={styles.cartSummary}>
           <div className={styles.summaryDetails}>
             <div className={styles.summaryRow}>
               <span>Subtotal</span>
-              <span>R$ 599,97</span>
+              <span>{totalPoints}</span>
             </div>
             <div className={styles.summaryRow}>
               <span>Descontos</span>
-              <span>R$ 0,00</span>
+              <span>0</span>
             </div>
             <div className={styles.summaryRow}>
               <strong>Total</strong>
-              <strong>R$ 419,97</strong>
+              <strong>{totalPoints}</strong>
             </div>
           </div>
           <div className={styles.actions}>

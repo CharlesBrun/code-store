@@ -55,12 +55,9 @@
     height: 15px;
     cursor: pointer;
 
-    transition: width 0.2s ease, height 0.2s ease;
-
     &:active {
       color: #112d4e;
-      width: 12px;
-      height: 12px;
+      transform: translateY(1px);
     }
   }
 }
@@ -71,12 +68,9 @@
     height: 16px;
     cursor: pointer;
 
-    transition: width 0.2s ease, height 0.2s ease;
-
     &:active {
       color: #ff5722;
-      width: 12px;
-      height: 12px;
+      transform: translateY(4px);
     }
   }
 }

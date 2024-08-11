@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./card.module.scss";
 import Button from "../Button";
+import { useCart } from "../../context/CartContext";
 
 interface IItem {
   id: number;
@@ -11,8 +12,10 @@ interface IItem {
 }
 
 const Card: React.FC<IItem> = (item) => {
-  const addToCart = () => {
-    console.log(`Adicionando ${item.name} ao carrinho.`);
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart(item);
   };
   return (
     <div className={styles.container}>
@@ -25,7 +28,7 @@ const Card: React.FC<IItem> = (item) => {
           </p>
         </div>
         <div className={styles.cardFooter}>
-          <Button text="Adicionar ao Carrinho" onClick={addToCart} />
+          <Button text="Adicionar ao Carrinho" onClick={handleAddToCart} />
         </div>
       </div>
     </div>

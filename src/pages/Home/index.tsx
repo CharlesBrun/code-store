@@ -7,6 +7,7 @@ import Card from "../../components/Card";
 import juice from "../../assets/juice.png";
 import food from "../../assets/food.png";
 import voucher from "../../assets/voucher.png";
+import Modal from "../../components/Modal";
 
 const items = [
   {
@@ -21,7 +22,7 @@ const items = [
     src: food,
     name: "Almoço especial",
     price: 20,
-    qnt: 3,
+    qnt: 1,
   },
   {
     id: 3,
@@ -40,10 +41,11 @@ function Home() {
         <PageTitle title="Lista de produtos" />
         <div className={styles.row}>
           {items.map((item) => (
-            <Card {...item} />
+            <Card key={item.id} {...item} />
           ))}
         </div>
       </div>
+      <Modal />
     </>
   );
 }

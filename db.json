@@ -1,22 +1,25 @@
 {
-  "users": [
+  "data": [
     {
-      "id": "1",
-      "name": "Charles",
-      "email": "charles@email.com",
-      "password": "123456"
+      "id": 1,
+      "src": "/static/media/juice.62c23dbb4cfced2143b4.png",
+      "name": "Suco de laranja",
+      "price": 5,
+      "qnt": 1
     },
     {
-      "id": "2",
-      "name": "Joao",
-      "email": "joao@email.com",
-      "password": "123456"
+      "id": 2,
+      "src": "/static/media/food.d377d7308fc4441c29e6.png",
+      "name": "Almoço especial",
+      "price": 20,
+      "qnt": 1
     },
     {
-      "id": "874e",
-      "email": "veri-frontend@gmail.com",
-      "name": "teste",
-      "password": "1234"
+      "id": 3,
+      "src": "/static/media/voucher.3ac7e5593153b17d88db.png",
+      "name": "10% de desconto",
+      "price": 10,
+      "qnt": 1
     }
   ]
 }
