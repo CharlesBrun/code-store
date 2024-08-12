@@ -11,15 +11,15 @@ function Home() {
 
   return (
     <>
-      <Header />
-      <div className={styles.container}>
+      <Header isCheckout={false} />
+      <main className={styles.container}>
         <PageTitle title="Lista de produtos" />
-        <div className={styles.row}>
+        <section className={styles.row}>
           {products.map((product) => (
             <Card key={product.id} {...product} />
           ))}
-        </div>
-      </div>
+        </section>
+      </main>
       <Modal />
     </>
   );

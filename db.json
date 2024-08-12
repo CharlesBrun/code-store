@@ -2,21 +2,21 @@
   "products": [
     {
       "id": 1,
-      "src": "/static/media/juice.62c23dbb4cfced2143b4.png",
+      "src": "/images/juice.png",
       "name": "Suco de laranja",
       "price": 5,
       "qnt": 1
     },
     {
       "id": 2,
-      "src": "/static/media/food.d377d7308fc4441c29e6.png",
+      "src": "/images/food.png",
       "name": "Almoço especial",
       "price": 20,
       "qnt": 1
     },
     {
       "id": 3,
-      "src": "/static/media/voucher.3ac7e5593153b17d88db.png",
+      "src": "/images/voucher.png",
       "name": "10% de desconto",
       "price": 10,
       "qnt": 1

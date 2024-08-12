@@ -10,7 +10,7 @@ import SideInfo from "../SideInfo";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 
-const Header = () => {
+const Header: React.FC<{ isCheckout: boolean }> = ({ isCheckout }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { walletPoints, totalItems } = useCart();
   const navigate = useNavigate();
@@ -33,15 +33,17 @@ const Header = () => {
           </p>
         </div>
         <div className={styles.rowNavIcon}>
-          <div className={styles.cartIconContainer}>
-            {totalItems > 0 && (
-              <span className={styles.cartBadge}>{totalItems}</span>
-            )}
-            <MdOutlineShoppingCart
-              className={styles.navIcon}
-              onClick={toggleCart}
-            />
-          </div>
+          {!isCheckout ? (
+            <div className={styles.cartIconContainer}>
+              {totalItems > 0 && (
+                <span className={styles.cartBadge}>{totalItems}</span>
+              )}
+              <MdOutlineShoppingCart
+                className={styles.navIcon}
+                onClick={toggleCart}
+              />
+            </div>
+          ) : null}
           <MdOutlineQueryBuilder
             className={styles.navIcon}
             onClick={() => navigate("/historico")}

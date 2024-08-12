@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 function History() {
   return (
     <>
-      <Header />
+      <Header isCheckout={false} />
       <h1>Historico</h1>
     </>
   );
