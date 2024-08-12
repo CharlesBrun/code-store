@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./card.module.scss";
 import Button from "../Button";
 import { useCart } from "../../context/CartContext";
-import { IItem } from "../../types/item";
+import { IItem } from "../../interfaces/item";
 
 const Card: React.FC<IItem> = (product) => {
   const { addToCart } = useCart();

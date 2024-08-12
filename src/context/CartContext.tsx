@@ -6,7 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import { api } from "../services/api";
-import { IItem } from "../types/item";
+import { IItem } from "../interfaces/item";
 
 interface CartContextType {
   item: IItem;

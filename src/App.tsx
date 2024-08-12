@@ -15,15 +15,15 @@ function App() {
       <Router>
         <WalletProvider>
           <CartProvider>
-            <CheckoutProvider>
-              <PurchaseHistoryProvider>
+            <PurchaseHistoryProvider>
+              <CheckoutProvider>
                 <Routes>
                   <Route path={"/"} element={<Home />} />
                   <Route path={"/historico"} element={<PurchaseHistory />} />
                   <Route path={"/checkout"} element={<Checkout />} />
                 </Routes>
-              </PurchaseHistoryProvider>
-            </CheckoutProvider>
+              </CheckoutProvider>
+            </PurchaseHistoryProvider>
           </CartProvider>
         </WalletProvider>
       </Router>

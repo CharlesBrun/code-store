@@ -15,10 +15,11 @@ import {
 } from "react-hook-form";
 import { api } from "../services/api";
 import { useCart } from "./CartContext";
-import { IItem } from "../types/item";
-import { ICheckoutFormData } from "../types/checkout";
+import { IItem } from "../interfaces/item";
+import { ICheckoutFormData } from "../interfaces/checkout";
 import { useWallet } from "./WalletContext";
 import { useNavigate } from "react-router-dom";
+import { usePurchaseHistory } from "./PurchaseHistoryContext";
 
 interface IState {
   id: number;
@@ -45,6 +46,7 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
   //contexts
   const { items, cleanCart, totalPoints } = useCart();
   const { wallet, updateWallet } = useWallet();
+  const { addPurchase } = usePurchaseHistory();
   const navigate = useNavigate();
   //states
   const [states, setStates] = useState<IState[]>([]);
@@ -61,11 +63,13 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
       ...data,
       items,
     };
+    console.log(checkoutData);
     setIsLoading(true);
 
     setTimeout(async () => {
       if (wallet > totalPoints) {
         await updateWallet(wallet - totalPoints);
+        await addPurchase({ itens: items, expensedPoints: totalPoints });
         setIsLoading(false);
         cleanCart();
         navigate("/");

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./item.module.scss";
 import { FaMinusCircle, FaPlusCircle, FaRegTrashAlt } from "react-icons/fa";
 import { useCart } from "../../context/CartContext";
-import { IItem } from "../../types/item";
+import { IItem } from "../../interfaces/item";
 
 const Item: React.FC<IItem> = (item) => {
   const { addToCart, removeFromCart, openModal } = useCart();

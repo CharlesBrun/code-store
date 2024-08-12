@@ -22,9 +22,11 @@ function Checkout() {
     control,
     handleSubmit,
     errors,
-
     onSubmit,
   } = useCheckout();
+
+  // TODO
+  // Ajustar placeholder
 
   return (
     <>
