@@ -1,4 +1,10 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+} from "react";
 import { api } from "../services/api";
 import { IItem } from "../types/item";
 
@@ -10,12 +16,12 @@ interface CartContextType {
   totalItems: number;
   addToCart: (item: IItem) => void;
   removeFromCart: (item: IItem) => void;
-  removeAll: (item: IItem) => void;
-  walletPoints: number;
+  removeItensAll: (item: IItem) => void;
 
   openModal: (item: IItem) => void;
   closeModal: () => void;
   isModalOpen: boolean;
+  cleanCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -23,7 +29,6 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const walletPoints = 1000;
   const [item, setItem] = useState<IItem>({} as IItem);
   const [products, setProducts] = useState<IItem[]>([]);
   const [items, setItems] = useState<IItem[]>([]);
@@ -41,23 +46,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     setModalOpen(false);
   };
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const { data } = await api.get("/products");
-        setProducts(data);
-      } catch (error) {
-        console.error("Erro ao buscar itens:", error);
-      }
-    };
-
-    fetchItems();
+  const fetchItems = useCallback(async () => {
+    try {
+      const { data } = await api.get("/products");
+      setProducts(data);
+    } catch (error) {
+      console.error("Erro ao buscar itens:", error);
+    }
   }, []);
-
-  useEffect(() => {
-    const newTotalItems = items.reduce((total, item) => total + item.qnt, 0);
-    setTotalItems(newTotalItems);
-  }, [items]);
 
   const addToCart = (item: IItem) => {
     setItems((prevItems) => {
@@ -113,7 +109,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
-  const removeAll = (item: IItem) => {
+  const removeItensAll = (item: IItem) => {
     setItems((prevItems) => {
       const updatedItems = prevItems.filter((i) => i.id !== item.id);
 
@@ -126,6 +122,19 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
+  const cleanCart = () => {
+    setItems([] as IItem[]);
+  };
+
+  useEffect(() => {
+    fetchItems();
+  }, [fetchItems]);
+
+  useEffect(() => {
+    const newTotalItems = items.reduce((total, item) => total + item.qnt, 0);
+    setTotalItems(newTotalItems);
+  }, [items]);
+
   return (
     <CartContext.Provider
       value={{
@@ -136,11 +145,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         totalItems,
         addToCart,
         removeFromCart,
-        removeAll,
-        walletPoints,
+        removeItensAll,
         isModalOpen,
         openModal,
         closeModal,
+        cleanCart,
       }}
     >
       {children}

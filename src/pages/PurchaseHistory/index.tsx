@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/Header";
 
-function History() {
+function PurchaseHistory() {
   return (
     <>
       <Header isCheckout={false} />
@@ -10,4 +10,4 @@ function History() {
   );
 }
 
-export default History;
+export default PurchaseHistory;
