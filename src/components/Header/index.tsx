@@ -9,10 +9,12 @@ import SideInfo from "../SideInfo";
 
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import { useWallet } from "../../context/WalletContext";
 
 const Header: React.FC<{ isCheckout: boolean }> = ({ isCheckout }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { walletPoints, totalItems } = useCart();
+  const { totalItems } = useCart();
+  const { wallet } = useWallet();
   const navigate = useNavigate();
 
   const toggleCart = () => {
@@ -29,7 +31,7 @@ const Header: React.FC<{ isCheckout: boolean }> = ({ isCheckout }) => {
         <div className={styles.row}>
           <MdAccountBalanceWallet className={styles.iconWallet} />
           <p>
-            Pontos: <span>{walletPoints}</span>
+            Pontos: <span>{wallet}</span>
           </p>
         </div>
         <div className={styles.rowNavIcon}>

@@ -55,6 +55,7 @@ const SideInfo: React.FC<{ isOpen: boolean; closePanel: () => void }> = ({
           <div className={styles.actions}>
             <Button
               text="FINALIZAR COMPRA"
+              type="button"
               handleNavigate={handleNavigate}
               isDisabled={items.length === 0}
             />

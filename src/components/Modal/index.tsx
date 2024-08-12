@@ -3,9 +3,9 @@ import styles from "./modal.module.scss";
 import { useCart } from "../../context/CartContext";
 
 const Modal = () => {
-  const { item, isModalOpen, closeModal, removeAll } = useCart();
-  const handleRemoveAll = () => {
-    removeAll(item);
+  const { item, isModalOpen, closeModal, removeItensAll } = useCart();
+  const handleRemoveItensAll = () => {
+    removeItensAll(item);
     closeModal();
   };
   return (
@@ -24,7 +24,7 @@ const Modal = () => {
             </button>
             <button
               type="button"
-              onClick={handleRemoveAll}
+              onClick={handleRemoveItensAll}
               className={`${styles.Modalbtn} ${styles.Modaldeletebtn}`}
             >
               Sim

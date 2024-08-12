@@ -1,76 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import React from "react";
+import { Controller } from "react-hook-form";
 import styles from "./checkout.module.scss";
-import { useCart } from "../../context/CartContext";
+
 import Header from "../../components/Header";
 import PageTitle from "../../components/PageTitle";
-import { useNavigate } from "react-router-dom";
-import { api } from "../../services/api";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ptBR } from "date-fns/locale";
 
-type CheckoutFormData = {
-  name: string;
-  email: string;
-  address: string;
-  street: string;
-  state: string;
-  neighborhood: string;
-  number: number;
-  city: string;
-  zip: string;
-  cardNumber: string;
-  expirationDate: Date;
-  cvv: string;
-};
-
-type State = {
-  id: number;
-  sigla: string;
-  nome: string;
-};
+import { useCheckout } from "../../context/CheckoutContext";
+import { useCart } from "../../context/CartContext";
+import Button from "../../components/Button";
 
 function Checkout() {
   const { items, totalPoints } = useCart();
-  const [states, setStates] = useState<State[]>([]);
   const {
+    states,
+    isLoading,
     register,
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm<CheckoutFormData>();
+    errors,
 
-  const onSubmit: SubmitHandler<CheckoutFormData> = (data) => {
-    const checkoutData = {
-      ...data,
-      items,
-      totalPoints,
-    };
-    console.log("Form data:", checkoutData);
-    // Lógica de checkout aqui
-  };
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (items.length <= 0) {
-      navigate("/");
-    }
-
-    const fetchStates = async () => {
-      try {
-        const response = await api.get("/states");
-        const { data } = response;
-        setStates(data);
-      } catch (error) {
-        console.error("Erro ao buscar estados:", error);
-      }
-    };
-
-    fetchStates();
-  }, []);
+    onSubmit,
+  } = useCheckout();
 
   return (
     <>
@@ -78,6 +32,7 @@ function Checkout() {
       <div className={styles.container}>
         <PageTitle title="Checkout" redirect={"/"} />
         <section className={styles.row}>
+          {/* Formulario de pagamento */}
           <form
             className={styles.checkoutForm}
             onSubmit={handleSubmit(onSubmit)}
@@ -205,19 +160,20 @@ function Checkout() {
                   name="expirationDate"
                   control={control}
                   rules={{ required: "Data de expiração é obrigatória" }}
-                  render={({ field }: any) => (
-                    <DatePicker
-                      {...field}
-                      selected={field.value}
-                      onChange={(date) => field.onChange(date)}
-                      dateFormat="MM/yyyy"
-                      locale={ptBR}
-                      showMonthYearPicker
-                      showFullMonthYearPicker
-                      placeholderText="MM/YYYY"
-                      className={styles.datePicker}
-                    />
-                  )}
+                  render={({ field: { value, onChange } }) => {
+                    return (
+                      <DatePicker
+                        selected={value}
+                        onChange={(date) => onChange(date)}
+                        dateFormat="MM/yyyy"
+                        disabledKeyboardNavigation
+                        locale={ptBR}
+                        showMonthYearPicker
+                        placeholderText="01/2001"
+                        className={styles.datePicker}
+                      />
+                    );
+                  }}
                 />
                 {errors.expirationDate && (
                   <p className={styles.error}>
@@ -239,12 +195,13 @@ function Checkout() {
                 )}
               </div>
             </div>
-
-            <button type="submit" className={styles.checkoutButton}>
-              Finalizar Compra
-            </button>
+            <Button
+              text="Finalizar Compra"
+              type="submit"
+              isLoading={isLoading}
+            />
           </form>
-
+          {/* Dados da compra */}
           <div className={styles.orderSummary}>
             <h3>Resumo do Pedido</h3>
             {items.map((item) => (

@@ -15,7 +15,7 @@ const Item: React.FC<IItem> = (item) => {
     removeFromCart(item);
   };
 
-  const handleRemoveAll = () => {
+  const handleRemoveItensAll = () => {
     openModal(item);
   };
 
@@ -40,7 +40,10 @@ const Item: React.FC<IItem> = (item) => {
           </p>
         </div>
         <div className={styles.iconRow}>
-          <FaRegTrashAlt className={styles.icon} onClick={handleRemoveAll} />
+          <FaRegTrashAlt
+            className={styles.icon}
+            onClick={handleRemoveItensAll}
+          />
         </div>
       </div>
       <hr className={styles.itemDivider} />

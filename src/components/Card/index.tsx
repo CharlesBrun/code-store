@@ -21,7 +21,11 @@ const Card: React.FC<IItem> = (product) => {
           </p>
         </div>
         <div className={styles.cardFooter}>
-          <Button text="Adicionar ao Carrinho" onClick={handleAddToCart} />
+          <Button
+            text="Adicionar ao Carrinho"
+            type="button"
+            onClick={handleAddToCart}
+          />
         </div>
       </div>
     </div>
