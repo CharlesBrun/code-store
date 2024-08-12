@@ -18,7 +18,7 @@ import { useCart } from "./CartContext";
 import { IItem } from "../interfaces/item";
 import { ICheckoutFormData } from "../interfaces/checkout";
 import { useWallet } from "./WalletContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { usePurchaseHistory } from "./PurchaseHistoryContext";
 
 interface IState {
@@ -48,6 +48,8 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
   const { wallet, updateWallet } = useWallet();
   const { addPurchase } = usePurchaseHistory();
   const navigate = useNavigate();
+  const location = useLocation();
+
   //states
   const [states, setStates] = useState<IState[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +59,11 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
     handleSubmit,
     formState: { errors },
   } = useForm<ICheckoutFormData>();
+
+  const handlePage = useCallback(() => {
+    const isCheckoutPage = location.pathname === "/checkout";
+    if (isCheckoutPage && items.length === 0) navigate("/");
+  }, []);
 
   const onSubmit: SubmitHandler<ICheckoutFormData> = (data) => {
     const checkoutData = {
@@ -91,8 +98,9 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   useEffect(() => {
+    handlePage();
     fetchStates();
-  }, [fetchStates]);
+  }, [fetchStates, handlePage]);
 
   return (
     <CheckoutContext.Provider

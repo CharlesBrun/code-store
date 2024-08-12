@@ -43,6 +43,7 @@ function Checkout() {
               <label htmlFor="name">Nome Completo</label>
               <input
                 id="name"
+                placeholder="Nome completo"
                 {...register("name", { required: "Nome é obrigatório" })}
               />
               {errors.name && (
@@ -55,6 +56,7 @@ function Checkout() {
               <input
                 id="email"
                 type="email"
+                placeholder="email@email.com"
                 {...register("email", { required: "Email é obrigatório" })}
               />
               {errors.email && (
@@ -66,6 +68,7 @@ function Checkout() {
                 <label htmlFor="street">Rua</label>
                 <input
                   id="street"
+                  placeholder="Rua"
                   {...register("street", { required: "Rua é obrigatória" })}
                 />
                 {errors.street && (
@@ -77,6 +80,7 @@ function Checkout() {
                 <label htmlFor="neighborhood">Bairro</label>
                 <input
                   id="neighborhood"
+                  placeholder="Bairro"
                   {...register("neighborhood", {
                     required: "Bairro é obrigatório",
                   })}
@@ -92,6 +96,7 @@ function Checkout() {
                   id="number"
                   type="number"
                   pattern="\d*"
+                  placeholder="Numero"
                   {...register("number", { required: "Número é obrigatório" })}
                 />
                 {errors.number && (
@@ -103,6 +108,7 @@ function Checkout() {
                 <label htmlFor="city">Cidade</label>
                 <input
                   id="city"
+                  placeholder="Cidade"
                   {...register("city", { required: "Cidade é obrigatória" })}
                 />
                 {errors.city && (
@@ -133,6 +139,7 @@ function Checkout() {
                 <input
                   id="zip"
                   type="number"
+                  placeholder="00000000"
                   {...register("zip", { required: "CEP é obrigatório" })}
                 />
                 {errors.zip && (
@@ -148,6 +155,7 @@ function Checkout() {
                   id="cardNumber"
                   type="number"
                   pattern="\d*"
+                  placeholder="1234567890"
                   {...register("cardNumber", {
                     required: "Número do cartão é obrigatório",
                   })}
@@ -190,6 +198,7 @@ function Checkout() {
                   id="cvv"
                   type="number"
                   pattern="\d*"
+                  placeholder="123"
                   {...register("cvv", { required: "CVV é obrigatório" })}
                 />
                 {errors.cvv && (
@@ -197,11 +206,15 @@ function Checkout() {
                 )}
               </div>
             </div>
-            <Button
-              text="Finalizar Compra"
-              type="submit"
-              isLoading={isLoading}
-            />
+            <div className={styles.containerBtn}>
+              <div className={styles.row}>
+                <Button
+                  text="Finalizar Compra"
+                  type="submit"
+                  isLoading={isLoading}
+                />
+              </div>
+            </div>
           </form>
           {/* Dados da compra */}
           <div className={styles.orderSummary}>

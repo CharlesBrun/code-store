@@ -1,6 +1,6 @@
 {
   "wallet": {
-    "points": 900
+    "points": 870
   },
   "products": [
     {
@@ -46,6 +46,27 @@
       ],
       "purchaseDate": "2024-08-12T22:31:47.655Z",
       "expensedPoints": 70
+    },
+    {
+      "id": "763a",
+      "itens": [
+        {
+          "id": "3",
+          "src": "/images/voucher.png",
+          "name": "10% de desconto",
+          "price": 10,
+          "qnt": 1
+        },
+        {
+          "id": "2",
+          "src": "/images/food.png",
+          "name": "Almoço especial",
+          "price": 20,
+          "qnt": 1
+        }
+      ],
+      "purchaseDate": "2024-08-12T22:37:16.528Z",
+      "expensedPoints": 30
     }
   ],
   "states": [
