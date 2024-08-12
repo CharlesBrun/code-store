@@ -1,32 +1,54 @@
-import React, { useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import styles from "./checkout.module.scss";
 import { useCart } from "../../context/CartContext";
 import Header from "../../components/Header";
 import PageTitle from "../../components/PageTitle";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../services/api";
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { ptBR } from "date-fns/locale";
 
 type CheckoutFormData = {
   name: string;
   email: string;
   address: string;
+  street: string;
+  state: string;
+  neighborhood: string;
+  number: number;
   city: string;
   zip: string;
   cardNumber: string;
-  expirationDate: string;
+  expirationDate: Date;
   cvv: string;
+};
+
+type State = {
+  id: number;
+  sigla: string;
+  nome: string;
 };
 
 function Checkout() {
   const { items, totalPoints } = useCart();
+  const [states, setStates] = useState<State[]>([]);
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<CheckoutFormData>();
 
   const onSubmit: SubmitHandler<CheckoutFormData> = (data) => {
-    console.log("Form data:", data);
+    const checkoutData = {
+      ...data,
+      items,
+      totalPoints,
+    };
+    console.log("Form data:", checkoutData);
     // Lógica de checkout aqui
   };
 
@@ -36,17 +58,19 @@ function Checkout() {
     if (items.length <= 0) {
       navigate("/");
     }
-  }, []);
 
-  {
-    /* TODO 
-     COLOCAR O CAMPO DE EXPIRAÇÃO NO FORMATO DE DATA 
-     CAMPOS DE NUMEROS PERMITIR SOMENTE NUMEROS
-     SEPARAR OS CAMPOS DE ENDEREÇO COMO RUA BAIRRO E NUMERO
-     NUMERO DE CARTÃO, CVV E DATA DE EXPIRAÇÃO PODE SER MELHOR ORGANIZADO
-     OBJETO DO ONSUBMIT PODE TER INCLUSO OS ITENS E O VALOR
-     */
-  }
+    const fetchStates = async () => {
+      try {
+        const response = await api.get("/states");
+        const { data } = response;
+        setStates(data);
+      } catch (error) {
+        console.error("Erro ao buscar estados:", error);
+      }
+    };
+
+    fetchStates();
+  }, []);
 
   return (
     <>
@@ -70,7 +94,7 @@ function Checkout() {
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">E-mail</label>
               <input
                 id="email"
                 type="email"
@@ -80,78 +104,140 @@ function Checkout() {
                 <p className={styles.error}>{errors.email.message}</p>
               )}
             </div>
+            <div className={styles.rowForm}>
+              <div className={`${styles.formGroup} ${styles.addressGroup}`}>
+                <label htmlFor="street">Rua</label>
+                <input
+                  id="street"
+                  {...register("street", { required: "Rua é obrigatória" })}
+                />
+                {errors.street && (
+                  <p className={styles.error}>{errors.street.message}</p>
+                )}
+              </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="address">Endereço</label>
-              <input
-                id="address"
-                {...register("address", { required: "Endereço é obrigatório" })}
-              />
-              {errors.address && (
-                <p className={styles.error}>{errors.address.message}</p>
-              )}
+              <div className={styles.formGroup}>
+                <label htmlFor="neighborhood">Bairro</label>
+                <input
+                  id="neighborhood"
+                  {...register("neighborhood", {
+                    required: "Bairro é obrigatório",
+                  })}
+                />
+                {errors.neighborhood && (
+                  <p className={styles.error}>{errors.neighborhood.message}</p>
+                )}
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="number">Número</label>
+                <input
+                  id="number"
+                  type="number"
+                  pattern="\d*"
+                  {...register("number", { required: "Número é obrigatório" })}
+                />
+                {errors.number && (
+                  <p className={styles.error}>{errors.number.message}</p>
+                )}
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="city">Cidade</label>
+                <input
+                  id="city"
+                  {...register("city", { required: "Cidade é obrigatória" })}
+                />
+                {errors.city && (
+                  <p className={styles.error}>{errors.city.message}</p>
+                )}
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="state">Estado</label>
+                <select
+                  id="state"
+                  {...register("state", { required: "Estado é obrigatório" })}
+                >
+                  <option value="">Selecione um estado</option>
+                  {states.map((state) => (
+                    <option key={state.id} value={state.sigla}>
+                      {state.nome}
+                    </option>
+                  ))}
+                </select>
+                {errors.state && (
+                  <p className={styles.error}>{errors.state.message}</p>
+                )}
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="zip">CEP</label>
+                <input
+                  id="zip"
+                  type="number"
+                  {...register("zip", { required: "CEP é obrigatório" })}
+                />
+                {errors.zip && (
+                  <p className={styles.error}>{errors.zip.message}</p>
+                )}
+              </div>
             </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="city">Cidade</label>
-              <input
-                id="city"
-                {...register("city", { required: "Cidade é obrigatória" })}
-              />
-              {errors.city && (
-                <p className={styles.error}>{errors.city.message}</p>
-              )}
-            </div>
+            <div className={styles.rowForm}>
+              <div className={styles.formGroup}>
+                <label htmlFor="cardNumber">Número do Cartão</label>
+                <input
+                  id="cardNumber"
+                  type="number"
+                  pattern="\d*"
+                  {...register("cardNumber", {
+                    required: "Número do cartão é obrigatório",
+                  })}
+                />
+                {errors.cardNumber && (
+                  <p className={styles.error}>{errors.cardNumber.message}</p>
+                )}
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="expirationDate">Data de Expiração</label>
+                <Controller
+                  name="expirationDate"
+                  control={control}
+                  rules={{ required: "Data de expiração é obrigatória" }}
+                  render={({ field }: any) => (
+                    <DatePicker
+                      {...field}
+                      selected={field.value}
+                      onChange={(date) => field.onChange(date)}
+                      dateFormat="MM/yyyy"
+                      locale={ptBR}
+                      showMonthYearPicker
+                      showFullMonthYearPicker
+                      placeholderText="MM/YYYY"
+                      className={styles.datePicker}
+                    />
+                  )}
+                />
+                {errors.expirationDate && (
+                  <p className={styles.error}>
+                    {errors.expirationDate.message}
+                  </p>
+                )}
+              </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="zip">CEP</label>
-              <input
-                id="zip"
-                {...register("zip", { required: "CEP é obrigatório" })}
-              />
-              {errors.zip && (
-                <p className={styles.error}>{errors.zip.message}</p>
-              )}
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="cardNumber">Número do Cartão</label>
-              <input
-                id="cardNumber"
-                type="text"
-                {...register("cardNumber", {
-                  required: "Número do cartão é obrigatório",
-                })}
-              />
-              {errors.cardNumber && (
-                <p className={styles.error}>{errors.cardNumber.message}</p>
-              )}
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="expirationDate">Data de Expiração</label>
-              <input
-                id="expirationDate"
-                type="text"
-                {...register("expirationDate", {
-                  required: "Data de expiração é obrigatória",
-                })}
-              />
-              {errors.expirationDate && (
-                <p className={styles.error}>{errors.expirationDate.message}</p>
-              )}
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="cvv">CVV</label>
-              <input
-                id="cvv"
-                type="text"
-                {...register("cvv", { required: "CVV é obrigatório" })}
-              />
-              {errors.cvv && (
-                <p className={styles.error}>{errors.cvv.message}</p>
-              )}
+              <div className={styles.formGroup}>
+                <label htmlFor="cvv">CVV</label>
+                <input
+                  id="cvv"
+                  type="number"
+                  pattern="\d*"
+                  {...register("cvv", { required: "CVV é obrigatório" })}
+                />
+                {errors.cvv && (
+                  <p className={styles.error}>{errors.cvv.message}</p>
+                )}
+              </div>
             </div>
 
             <button type="submit" className={styles.checkoutButton}>
@@ -163,7 +249,7 @@ function Checkout() {
             <h3>Resumo do Pedido</h3>
             {items.map((item) => (
               <div key={item.id} className={styles.item}>
-                <span>{item.name}</span>
+                <span>{item.name}: </span>
                 <span>
                   {item.qnt} x {item.price} pts
                 </span>
