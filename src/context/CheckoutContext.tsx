@@ -60,6 +60,7 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ICheckoutFormData>();
 
@@ -86,6 +87,7 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
         await addPurchase({ itens: items, expensedPoints: totalPoints });
         setIsLoading(false);
         cleanCart();
+        reset();
         navigate("/");
       } else {
         setIsLoading(false);

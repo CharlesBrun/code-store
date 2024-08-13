@@ -8,6 +8,7 @@ import { useCheckout } from "../../context/CheckoutContext";
 import { useCart } from "../../context/CartContext";
 import Button from "../../components/Button";
 import DangerAlert from "../../components/Alert";
+import Input from "../../components/Input";
 
 function Checkout() {
   const { items, totalPoints } = useCart();
@@ -37,86 +38,65 @@ function Checkout() {
             className={styles.checkoutForm}
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className={styles.formGroup}>
-              <label htmlFor="name">Nome Completo</label>
-              <input
-                id="name"
-                placeholder="Nome completo"
-                {...register("name", { required: "Nome é obrigatório" })}
-              />
-              {errors.name && (
-                <p className={styles.error}>{errors.name.message}</p>
-              )}
-            </div>
+            <Input
+              id="name"
+              label="Nome Completo"
+              placeholder="Nome completo"
+              register={register}
+              errors={errors}
+              required={true}
+            />
 
-            <div className={styles.formGroup}>
-              <label htmlFor="email">E-mail</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="email@email.com"
-                {...register("email", { required: "Email é obrigatório" })}
-              />
-              {errors.email && (
-                <p className={styles.error}>{errors.email.message}</p>
-              )}
-            </div>
+            <Input
+              id="email"
+              label="E-mail"
+              type="email"
+              placeholder="email@email.com"
+              register={register}
+              errors={errors}
+              required={true}
+            />
             <div className={styles.rowFormAddress}>
               <div className={styles.inputAddress}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="street">Rua</label>
-                  <input
-                    id="street"
-                    placeholder="Rua"
-                    {...register("street", { required: "Rua é obrigatória" })}
-                  />
-                  {errors.street && (
-                    <p className={styles.error}>{errors.street.message}</p>
-                  )}
-                </div>
+                <Input
+                  id="street"
+                  label="Rua"
+                  placeholder="Rua"
+                  register={register}
+                  errors={errors}
+                  required={true}
+                />
               </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="neighborhood">Bairro</label>
-                <input
-                  id="neighborhood"
-                  placeholder="Bairro"
-                  {...register("neighborhood", {
-                    required: "Bairro é obrigatório",
-                  })}
-                />
-                {errors.neighborhood && (
-                  <p className={styles.error}>{errors.neighborhood.message}</p>
-                )}
-              </div>
+              <Input
+                id="neighborhood"
+                label="Bairro"
+                placeholder="Bairro"
+                register={register}
+                errors={errors}
+                required={true}
+              />
             </div>
             <div className={styles.rowForm}>
-              <div className={styles.formGroup}>
-                <label htmlFor="number">Número</label>
-                <input
-                  id="number"
-                  type="number"
-                  pattern="\d*"
-                  placeholder="Numero"
-                  {...register("number", { required: "Número é obrigatório" })}
-                />
-                {errors.number && (
-                  <p className={styles.error}>{errors.number.message}</p>
-                )}
-              </div>
+              <Input
+                id="number"
+                label="Número"
+                type="number"
+                placeholder="Número"
+                register={register}
+                errors={errors}
+                required={true}
+              />
 
               <div className={styles.fillSpace}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="city">Cidade</label>
-                  <input
-                    id="city"
-                    placeholder="Cidade"
-                    {...register("city", { required: "Cidade é obrigatória" })}
-                  />
-                  {errors.city && (
-                    <p className={styles.error}>{errors.city.message}</p>
-                  )}
-                </div>
+                <Input
+                  id="city"
+                  label="Cidade"
+                  placeholder="Cidade"
+                  register={register}
+                  errors={errors}
+                  required={true}
+                />
               </div>
 
               <div className={styles.fillSpace}>
@@ -139,18 +119,15 @@ function Checkout() {
                 </div>
               </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="zip">CEP</label>
-                <input
-                  id="zip"
-                  type="number"
-                  placeholder="00000000"
-                  {...register("zip", { required: "CEP é obrigatório" })}
-                />
-                {errors.zip && (
-                  <p className={styles.error}>{errors.zip.message}</p>
-                )}
-              </div>
+              <Input
+                id="zip"
+                label="CEP"
+                type="number"
+                placeholder="00000000"
+                register={register}
+                errors={errors}
+                required={true}
+              />
             </div>
 
             <div className={styles.containerBtn}>
