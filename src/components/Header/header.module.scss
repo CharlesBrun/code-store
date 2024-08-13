@@ -7,6 +7,10 @@
   padding: 2rem 4rem;
   background-color: #112d4e;
   color: $nav-text-color;
+
+  @media (max-width: 550px) {
+    padding: 2rem 2rem;
+  }
 }
 
 .row {
@@ -30,7 +34,6 @@
 
 .rowNavIcon {
   display: flex;
-  align-items: center;
 
   .navIcon {
     margin-left: 1rem;

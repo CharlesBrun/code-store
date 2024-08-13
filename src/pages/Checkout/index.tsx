@@ -61,17 +61,19 @@ function Checkout() {
                 <p className={styles.error}>{errors.email.message}</p>
               )}
             </div>
-            <div className={styles.rowForm}>
-              <div className={`${styles.formGroup} ${styles.addressGroup}`}>
-                <label htmlFor="street">Rua</label>
-                <input
-                  id="street"
-                  placeholder="Rua"
-                  {...register("street", { required: "Rua é obrigatória" })}
-                />
-                {errors.street && (
-                  <p className={styles.error}>{errors.street.message}</p>
-                )}
+            <div className={styles.rowFormAddress}>
+              <div className={styles.inputAddress}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="street">Rua</label>
+                  <input
+                    id="street"
+                    placeholder="Rua"
+                    {...register("street", { required: "Rua é obrigatória" })}
+                  />
+                  {errors.street && (
+                    <p className={styles.error}>{errors.street.message}</p>
+                  )}
+                </div>
               </div>
 
               <div className={styles.formGroup}>
@@ -87,7 +89,8 @@ function Checkout() {
                   <p className={styles.error}>{errors.neighborhood.message}</p>
                 )}
               </div>
-
+            </div>
+            <div className={styles.rowForm}>
               <div className={styles.formGroup}>
                 <label htmlFor="number">Número</label>
                 <input
@@ -102,34 +105,38 @@ function Checkout() {
                 )}
               </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="city">Cidade</label>
-                <input
-                  id="city"
-                  placeholder="Cidade"
-                  {...register("city", { required: "Cidade é obrigatória" })}
-                />
-                {errors.city && (
-                  <p className={styles.error}>{errors.city.message}</p>
-                )}
+              <div className={styles.fillSpace}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="city">Cidade</label>
+                  <input
+                    id="city"
+                    placeholder="Cidade"
+                    {...register("city", { required: "Cidade é obrigatória" })}
+                  />
+                  {errors.city && (
+                    <p className={styles.error}>{errors.city.message}</p>
+                  )}
+                </div>
               </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="state">Estado</label>
-                <select
-                  id="state"
-                  {...register("state", { required: "Estado é obrigatório" })}
-                >
-                  <option value="">Selecione um estado</option>
-                  {states.map((state) => (
-                    <option key={state.id} value={state.sigla}>
-                      {state.nome}
-                    </option>
-                  ))}
-                </select>
-                {errors.state && (
-                  <p className={styles.error}>{errors.state.message}</p>
-                )}
+              <div className={styles.fillSpace}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="state">Estado</label>
+                  <select
+                    id="state"
+                    {...register("state", { required: "Estado é obrigatório" })}
+                  >
+                    <option value="">Selecione um estado</option>
+                    {states.map((state) => (
+                      <option key={state.id} value={state.sigla}>
+                        {state.nome}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.state && (
+                    <p className={styles.error}>{errors.state.message}</p>
+                  )}
+                </div>
               </div>
 
               <div className={styles.formGroup}>

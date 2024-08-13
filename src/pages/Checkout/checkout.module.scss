@@ -22,6 +22,17 @@
   flex-wrap: wrap;
 }
 
+.rowFormAddress {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 2rem;
+
+  @media (max-width: 550px) {
+    flex-wrap: wrap;
+  }
+}
+
 .checkoutForm {
   flex: 1;
   display: flex;
@@ -39,8 +50,12 @@
   gap: 0.5rem;
 }
 
-.formGroup.addressGroup {
-  width: 100%;
+.inputAddress {
+  width: 80%;
+
+  @media (max-width: 550px) {
+    width: 100%;
+  }
 }
 
 label {
@@ -147,6 +162,10 @@ select {
 option {
   padding: 0.75rem;
   background-color: #fff;
+}
+
+.fillSpace {
+  flex-grow: 1;
 }
 
 .containerBtn {

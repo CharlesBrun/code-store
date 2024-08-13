@@ -26,6 +26,25 @@
     object-fit: cover;
     border-radius: $card-border-radius $card-border-radius 0 0;
   }
+
+  @media (max-width: 550px) {
+    align-items: center;
+    height: 420px;
+    width: 260px;
+
+    &:hover {
+      height: 423px;
+      width: 263px;
+    }
+
+    img {
+      min-height: 250px;
+      max-height: 400px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: $card-border-radius $card-border-radius 0 0;
+    }
+  }
 }
 
 .row {
@@ -49,6 +68,10 @@
 .cardTitle {
   font-size: 25px;
   font-weight: 700;
+
+  @media (max-width: 550px) {
+    font-size: 1.2rem;
+  }
 }
 
 .cardText {
@@ -58,6 +81,14 @@
   span {
     font-size: 18px;
     font-weight: 600;
+  }
+
+  @media (max-width: 550px) {
+    font-size: 0.9rem;
+
+    span {
+      font-size: 1rem;
+    }
   }
 }
 
