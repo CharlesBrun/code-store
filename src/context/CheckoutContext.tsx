@@ -36,6 +36,9 @@ interface ICheckoutContext {
   errors: FieldErrors<ICheckoutFormData>;
   isLoading: boolean;
   onSubmit: (data: ICheckoutFormData) => void;
+
+  alertShow: boolean;
+  handleAlert: () => void;
 }
 
 const CheckoutContext = createContext<ICheckoutContext | undefined>(undefined);
@@ -53,12 +56,18 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
   //states
   const [states, setStates] = useState<IState[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [alertShow, setAlertShow] = useState(false);
+
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<ICheckoutFormData>();
+
+  function handleAlert() {
+    setAlertShow(false);
+  }
 
   const handlePage = useCallback(() => {
     const isCheckoutPage = location.pathname === "/checkout";
@@ -82,6 +91,10 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
         navigate("/");
       } else {
         setIsLoading(false);
+        setAlertShow(true);
+        setTimeout(() => {
+          setAlertShow(false);
+        }, 5000);
         console.log("Não tem saldo o suficiente");
       }
     }, 2000);
@@ -114,6 +127,8 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
         errors,
 
         onSubmit,
+        alertShow,
+        handleAlert,
       }}
     >
       {children}

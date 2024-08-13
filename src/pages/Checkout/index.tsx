@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Controller } from "react-hook-form";
 import styles from "./checkout.module.scss";
 
@@ -12,6 +12,7 @@ import { ptBR } from "date-fns/locale";
 import { useCheckout } from "../../context/CheckoutContext";
 import { useCart } from "../../context/CartContext";
 import Button from "../../components/Button";
+import DangerAlert from "../../components/Alert";
 
 function Checkout() {
   const { items, totalPoints } = useCart();
@@ -23,14 +24,17 @@ function Checkout() {
     handleSubmit,
     errors,
     onSubmit,
+    alertShow,
+    handleAlert,
   } = useCheckout();
-
-  // TODO
-  // Ajustar placeholder
 
   return (
     <>
       <Header isCheckout={true} />
+      {alertShow ? (
+        <DangerAlert text="Saldo Insuficiente" closeAlert={handleAlert} />
+      ) : null}
+
       <div className={styles.container}>
         <PageTitle title="Checkout" redirect={"/"} />
         <section className={styles.row}>
@@ -220,7 +224,7 @@ function Checkout() {
           <div className={styles.orderSummary}>
             <h3>Resumo do Pedido</h3>
             {items.map((item) => (
-              <div key={item.id} className={styles.item}>
+              <div key={item.id} className={styles.product}>
                 <span>{item.name}: </span>
                 <span>
                   {item.qnt} x {item.price} pts

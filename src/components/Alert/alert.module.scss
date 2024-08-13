@@ -1,0 +1,33 @@
+@import "../../variables.scss";
+
+.container {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+
+  @media (max-width: 550px) {
+    justify-content: start;
+  }
+}
+
+.alert {
+  width: 200px;
+  padding: 20px;
+  background-color: #f44336;
+  color: $nav-text-color;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: $nav-text-color;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
