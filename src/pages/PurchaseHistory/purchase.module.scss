@@ -1,0 +1,20 @@
+@import "../../variables.scss";
+
+.container {
+  display: flex;
+  max-width: $max-width;
+  padding: 2vh 5%;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  gap: 5rem;
+  flex-wrap: wrap; /* para os itens não excederem a largura */
+}
+
+h2 {
+  margin-bottom: 1rem;
+}

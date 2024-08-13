@@ -4,6 +4,7 @@ import React, {
   useContext,
   useEffect,
   useCallback,
+  useMemo,
 } from "react";
 import { api } from "../services/api";
 import { IPurchaseHistory } from "../interfaces/purchaseHistory";
@@ -12,6 +13,10 @@ import moment from "moment";
 
 interface IPurchaseHistoryContext {
   purchaseHistories: IPurchaseHistory[];
+  today: IPurchaseHistory[];
+  thisWeek: IPurchaseHistory[];
+  thisMonth: IPurchaseHistory[];
+  older: IPurchaseHistory[];
   setPurchaseHistories: React.Dispatch<
     React.SetStateAction<IPurchaseHistory[]>
   >;
@@ -39,7 +44,6 @@ export const PurchaseHistoryProvider: React.FC<{
     try {
       const response = await api.get("/purchaseHistories");
       const { data } = response;
-      console.log(response);
       setPurchaseHistories(data);
     } catch (error) {
       console.error("Erro fetchStates", error);
@@ -60,11 +64,35 @@ export const PurchaseHistoryProvider: React.FC<{
         expensedPoints: expensedPoints,
       };
       const response = await api.post("/purchaseHistories", data);
-      console.log(response);
+      setPurchaseHistories((prev) => [...prev, response.data]);
     } catch (error) {
       console.error("Erro addPurchase", error);
     }
   };
+
+  const categorizedPurchases = useMemo(() => {
+    const today: IPurchaseHistory[] = [];
+    const thisWeek: IPurchaseHistory[] = [];
+    const thisMonth: IPurchaseHistory[] = [];
+    const older: IPurchaseHistory[] = [];
+
+    purchaseHistories.forEach((purchase) => {
+      const purchaseDate = moment(purchase.purchaseDate);
+      const now = moment();
+
+      if (purchaseDate.isSame(now, "day")) {
+        today.push(purchase);
+      } else if (purchaseDate.isSame(now, "week")) {
+        thisWeek.push(purchase);
+      } else if (purchaseDate.isSame(now, "month")) {
+        thisMonth.push(purchase);
+      } else {
+        older.push(purchase);
+      }
+    });
+
+    return { today, thisWeek, thisMonth, older };
+  }, [purchaseHistories]);
 
   useEffect(() => {
     fetchPurchaseHistory();
@@ -72,7 +100,15 @@ export const PurchaseHistoryProvider: React.FC<{
 
   return (
     <PurchaseHistoryContext.Provider
-      value={{ purchaseHistories, setPurchaseHistories, addPurchase }}
+      value={{
+        purchaseHistories,
+        today: categorizedPurchases.today,
+        thisWeek: categorizedPurchases.thisWeek,
+        thisMonth: categorizedPurchases.thisMonth,
+        older: categorizedPurchases.older,
+        setPurchaseHistories,
+        addPurchase,
+      }}
     >
       {children}
     </PurchaseHistoryContext.Provider>
