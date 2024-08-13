@@ -126,14 +126,18 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     setItems([] as IItem[]);
   };
 
+  const handleUpdateTotalValue = useCallback(() => {
+    const newTotalItems = items.reduce((total, item) => total + item.qnt, 0);
+    setTotalItems(newTotalItems);
+  }, [items]);
+
   useEffect(() => {
     fetchItems();
   }, [fetchItems]);
 
   useEffect(() => {
-    const newTotalItems = items.reduce((total, item) => total + item.qnt, 0);
-    setTotalItems(newTotalItems);
-  }, [items]);
+    handleUpdateTotalValue();
+  }, [items, handleUpdateTotalValue]);
 
   return (
     <CartContext.Provider
