@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# Projeto lojinha de prêmios
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Descrição
 
-## Available Scripts
+Aplicação para um programa de fidelidade de uma empresa, onde os clientes podem acumular pontos e trocá-los por prêmios em uma loja virtual. A aplicação permite que os usuários visualizem os produtos disponíveis, adicionem itens ao carrinho, verifiquem seu saldo de pontos e realizem o checkout utilizando seus pontos acumulados.
 
-In the project directory, you can run:
+## Tecnologias Utilizadas
 
-### `npm start`
+- **React**: Biblioteca JavaScript para criar interfaces de usuário.
+  -- **React-hook-form**: Gerenciamento de formulários em React.
+  -- **React-icons**: Conjunto de ícones.
+  -- **React-router-dom**: Roteamento para navegação em aplicações React.
+- **TypeScript**: Superset do JavaScript que adiciona tipagem estática.
+- **SASS/SCSS**: Pré-processador CSS para estilização de componentes React.
+- **Json-server**: API REST fake para desenvolvimento e testes.
+- **Moment**: Manipulação e formatação de datas em JavaScript.
+- **Concurrently**: Executar multiplus comandos (Executar api em seguida iniciar a aplicação).
+- **Yarn**: Gerenciador de pacotes para o projeto.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Funcionalidades
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Listagem de produtos**: Listagem dos produtos que podem ser trocados por pontos.
+- **Historico de compras**: Mostra detalhes dos produtos que fora comprados anteriormente dividido por hoje, esta semana, este mês e mais antigas.
+- **Carrinho de compras**: Sidescreen para visualizar os produtos que foram escolhidos, assim como os valores, quantidade e total da compra.
+- **Checkout**: Efetuar a compra dos itens escolhidos no carrinho utilizando os pontos acumulados.
 
-### `npm test`
+## Instalação
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Para instalar as dependências do projeto, utilize o Yarn.
 
-### `npm run build`
+- **Instalar as Dependências**: Execute o seguinte comando na raiz do projeto:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+yarn install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Script
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Iniciar a Aplicação**: Para iniciar a aplicação, execute:
 
-### `npm run eject`
+```bash
+yarn start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Estrutura do Projeto
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **`src/`**: Contém o código-fonte da aplicação.
+  - **`@types/`**: Definições globais de arquivos.
+  - **`components/`**: Componentes reutilizáveis da aplicação.
+  - **`pages/`**: Páginas da aplicação.
+  - **`context/`**: Contextos React para gerenciamento de estado e lógica de negócios.
+  - **`services/`**: Serviços para chamadas à API.
+  - **`interfaces/`**: Tipos e interfaces TypeScript.
+- **`db.json/`**: Arquivo mock de dados do json-server.
+- **`public/`**: Arquivos estáticos e a estrutura básica do HTML.
+- **`package.json`**: Configuração do projeto e scripts.
+- **`tsconfig.json`**: Configuração do TypeScript.
