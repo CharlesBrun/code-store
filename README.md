@@ -55,3 +55,4 @@ yarn start
 - **`public/`**: Arquivos estáticos e a estrutura básica do HTML.
 - **`package.json`**: Configuração do projeto e scripts.
 - **`tsconfig.json`**: Configuração do TypeScript.
+- **`.vscode/`**: Configuração padrão do vscode para manter o codigo organizado e padronizado.
