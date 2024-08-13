@@ -8,7 +8,4 @@ export interface ICheckoutFormData {
   number: number;
   city: string;
   zip: number;
-  cardNumber: number;
-  expirationDate: Date;
-  cvv: number;
 }

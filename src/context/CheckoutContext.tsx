@@ -31,7 +31,6 @@ interface ICheckoutContext {
   items: IItem[];
   states: IState[];
   register: UseFormRegister<ICheckoutFormData>;
-  control: Control<ICheckoutFormData, any>;
   handleSubmit: UseFormHandleSubmit<ICheckoutFormData, undefined>;
   errors: FieldErrors<ICheckoutFormData>;
   isLoading: boolean;
@@ -60,7 +59,6 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
   } = useForm<ICheckoutFormData>();
@@ -122,7 +120,6 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
         isLoading,
         states,
         register,
-        control,
         handleSubmit,
         errors,
 

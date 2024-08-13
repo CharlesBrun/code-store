@@ -1,13 +1,8 @@
 import React from "react";
-import { Controller } from "react-hook-form";
 import styles from "./checkout.module.scss";
 
 import Header from "../../components/Header";
 import PageTitle from "../../components/PageTitle";
-
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { ptBR } from "date-fns/locale";
 
 import { useCheckout } from "../../context/CheckoutContext";
 import { useCart } from "../../context/CartContext";
@@ -20,7 +15,6 @@ function Checkout() {
     states,
     isLoading,
     register,
-    control,
     handleSubmit,
     errors,
     onSubmit,
@@ -152,64 +146,6 @@ function Checkout() {
               </div>
             </div>
 
-            <div className={styles.rowForm}>
-              <div className={styles.formGroup}>
-                <label htmlFor="cardNumber">Número do Cartão</label>
-                <input
-                  id="cardNumber"
-                  type="number"
-                  pattern="\d*"
-                  placeholder="1234567890"
-                  {...register("cardNumber", {
-                    required: "Número do cartão é obrigatório",
-                  })}
-                />
-                {errors.cardNumber && (
-                  <p className={styles.error}>{errors.cardNumber.message}</p>
-                )}
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="expirationDate">Data de Expiração</label>
-                <Controller
-                  name="expirationDate"
-                  control={control}
-                  rules={{ required: "Data de expiração é obrigatória" }}
-                  render={({ field: { value, onChange } }) => {
-                    return (
-                      <DatePicker
-                        selected={value}
-                        onChange={(date) => onChange(date)}
-                        dateFormat="MM/yyyy"
-                        disabledKeyboardNavigation
-                        locale={ptBR}
-                        showMonthYearPicker
-                        placeholderText="01/2001"
-                        className={styles.datePicker}
-                      />
-                    );
-                  }}
-                />
-                {errors.expirationDate && (
-                  <p className={styles.error}>
-                    {errors.expirationDate.message}
-                  </p>
-                )}
-              </div>
-
-              <div className={styles.formGroup}>
-                <label htmlFor="cvv">CVV</label>
-                <input
-                  id="cvv"
-                  type="number"
-                  pattern="\d*"
-                  placeholder="123"
-                  {...register("cvv", { required: "CVV é obrigatório" })}
-                />
-                {errors.cvv && (
-                  <p className={styles.error}>{errors.cvv.message}</p>
-                )}
-              </div>
-            </div>
             <div className={styles.containerBtn}>
               <div className={styles.row}>
                 <Button

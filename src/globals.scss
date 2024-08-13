@@ -15,7 +15,6 @@
     content: "";
     background: $background;
     height: 100%;
-    // position: absolute;
     top: 0;
     width: 100%;
   }
@@ -24,9 +23,6 @@
 body {
   color: $text-color;
   font-family: $font-family;
-  // height: calc(100vh - 3.5rem);
   margin: auto;
   max-width: $max-width;
-  // overflow: hidden;
-  // position: relative;
 }
