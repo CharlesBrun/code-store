@@ -7,9 +7,9 @@ Aplicação para um programa de fidelidade de uma empresa, onde os clientes pode
 ## Tecnologias Utilizadas
 
 - **React**: Biblioteca JavaScript para criar interfaces de usuário.
-  -- **React-hook-form**: Gerenciamento de formulários em React.
-  -- **React-icons**: Conjunto de ícones.
-  -- **React-router-dom**: Roteamento para navegação em aplicações React.
+  - **React-hook-form**: Gerenciamento de formulários em React.
+  - **React-icons**: Conjunto de ícones.
+  - **React-router-dom**: Roteamento para navegação em aplicações React.
 - **TypeScript**: Superset do JavaScript que adiciona tipagem estática.
 - **SASS/SCSS**: Pré-processador CSS para estilização de componentes React.
 - **Json-server**: API REST fake para desenvolvimento e testes.
